@@ -3,4 +3,4 @@
 TARGET=/tmp/backup
 
 mkdir $TARGET
-tar cvf $TARGET/etc.tar /etc/profile.d 
+tar cvzf $TARGET/$2.tgz $1
