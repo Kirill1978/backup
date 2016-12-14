@@ -9,7 +9,11 @@ if [ ! $1 ]; then
 	exit 1
 fi
 
+# $1 = /etc/profile.d
+
 TARGET=/tmp/backup
+#BNAME=`basename $1`
+BNAME=$(basename $1)
 
 mkdir $TARGET
-tar cvzf $TARGET/$2.tgz $1
+tar cvzf $TARGET/$BNAME.tgz $1
