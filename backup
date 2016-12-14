@@ -1,11 +1,14 @@
 #!/bin/bash
 
-
 function error() { cat <<< "$@" 1>&2; }
 
+function help_() {
+	echo "Usage: $(basename $0) DIR"
+}
 #if [ -z $1 ]; then
 if [ ! $1 ]; then
-	error "no dir"
+	error "No directory"
+	help_ 
 	exit 1
 fi
 
