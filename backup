@@ -5,6 +5,16 @@ function error() { cat <<< "$@" 1>&2; }
 function help_() {
 	echo "Usage: $(basename $0) DIR"
 }
+
+function do_or_die(){
+	# $1 - command, $2 - error message
+	eval $1
+	if [ $? -ne 0 ]; then 
+		error $2
+		exit $?
+	fi
+	}
+
 #if [ -z $1 ]; then
 if [ ! $1 ]; then
 	error "No directory"
@@ -14,9 +24,10 @@ fi
 
 # $1 = /etc/profile.d
 
-TARGET=/tmp/backup
+TARGET=/tmp/backup/$USER
 #BNAME=`basename $1`
 BNAME=$(basename $1)
+DNAME=$(dirname $1)
 
 # 1.
 #if [ ! -d $TARGET ]; then
@@ -27,6 +38,8 @@ BNAME=$(basename $1)
 #if [ ! -d $TARGET ]; then;	mkdir $TARGET; fi
 
 # 3. Правильный способ
-[ -d $TARGET ] || mkdir $TARGET 
+[ -d $TARGET ] || do_or_die "mkdir -p $TARGET" "mkdir $TARGET failed"
+#if [[ $? != 0 ]]...
+#if [ $? -ne 0 ]; then; ... fi
 
-tar cvzf $TARGET/$BNAME.tgz $1
+do_or_die "tar cvzf $TARGET/$BNAME.tgz $1" "tar failed"
