@@ -1,0 +1,4 @@
+#!/bin/bash
+
+tar cvf etc.tar /etc/profile.d
+
