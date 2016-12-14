@@ -1,4 +1,6 @@
 #!/bin/bash
 
-tar cvf etc.tar /etc/profile.d
+TARGET=/tmp/backup
 
+mkdir $TARGET
+tar cvf $TARGET/etc.tar /etc/profile.d 
