@@ -18,5 +18,15 @@ TARGET=/tmp/backup
 #BNAME=`basename $1`
 BNAME=$(basename $1)
 
-mkdir $TARGET
+# 1.
+#if [ ! -d $TARGET ]; then
+#	mkdir $TARGET
+#fi
+
+# 2.
+#if [ ! -d $TARGET ]; then;	mkdir $TARGET; fi
+
+# 3. Правильный способ
+[ -d $TARGET ] || mkdir $TARGET 
+
 tar cvzf $TARGET/$BNAME.tgz $1
