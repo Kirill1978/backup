@@ -9,6 +9,12 @@ BACKUP=$DIR/backup
 LOCATIONS=$DIR/backup.locations
 TARGET=/tmp/backup 
 NUMBER=7
+
+#читаем настройки из конф-файла
+#source $DIR/backup-run.conf
+# или
+. $DIR/backup-run.conf 
+
 TIMESTAMP=$(date +%Y_%m_%d_%H_%M_%S)
 EXIT_CODE=0
 
@@ -43,3 +49,4 @@ while IFS=";" read USER LOCATION T1 N1; do
 	
 done < $LOCATIONS 
 
+exit $EXIT_CODE
