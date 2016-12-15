@@ -1,4 +1,4 @@
-#oper;/etc/profile.d
+oper;/etc/profile.d
 oper;/home/oper;/tmp/mytest
 oper;/home/oper/;;5
-oper;/etc;/tmp/etc;10
+oper;/etc/default;/tmp/etc;10
