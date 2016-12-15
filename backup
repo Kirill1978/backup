@@ -3,7 +3,7 @@
 function error() { cat <<< "$@" 1>&2; }
 
 function help_() {
-	echo "Usage: $(basename $0) DIR"
+	echo "Usage: $(basename $0) USER DIR TARGET"
 }
 
 function do_or_die(){
@@ -16,15 +16,18 @@ function do_or_die(){
 	}
 
 #if [ -z $1 ]; then
-if [ ! $1 ]; then
-	error "No directory"
+if [ -z "$1" -o -z "$2" ]; then
+	error "Something missing"
 	help_ 
 	exit 1
 fi
 
 # $1 = /etc/profile.d
+# $2 = target
+# $3 = timestamp
 
-TARGET=/tmp/backup/$USER
+TARGET=$2
+#TARGET=/tmp/backup/$USER
 #BNAME=`basename $1`
 BNAME=$(basename $1)
 DNAME=$(dirname $1)
@@ -42,4 +45,5 @@ DNAME=$(dirname $1)
 #if [[ $? != 0 ]]...
 #if [ $? -ne 0 ]; then; ... fi
 
-do_or_die "tar cvzf $TARGET/$BNAME.tgz $1" "tar failed"
+#do_or_die "tar cvzf $TARGET/$BNAME_$3.tgz $1" "tar failed"
+do_or_die "tar cvzf $TARGET/$BNAME_$3.tgz -C $DNAME $BNAME" "tar failed"
